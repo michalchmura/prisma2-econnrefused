@@ -1,4 +1,5 @@
 FROM node:12.4.0
+RUN openssl version -v
 
 ADD ./ /opt/app
 WORKDIR /opt/app
@@ -16,9 +17,8 @@ ENV HOME_DIR=/opt/app \
   NODE_CLUSTERED=0 \
   NODE_ENV=production \
   NODE_HOT_RELOAD=0 \
-  PORT=8080
+  PORT=8080 
 
-EXPOSE 8001
 EXPOSE 8080
 EXPOSE 8081
 

@@ -3,6 +3,7 @@ import Photon from '@generated/photon';
 import { makeSchema } from '@prisma/nexus';
 import { GraphQLServer } from 'graphql-yoga';
 import express, { Request, Response, RequestHandler } from 'express';
+import uuid from 'uuid/v4';
 import { join } from 'path';
 import { permissions } from './permissions';
 import * as allTypes from './resolvers';
@@ -10,6 +11,12 @@ import { Context } from './types';
 
 const photon = new Photon({
   debug: true,
+  __internal: {
+    engine: {
+      cwd: join(__dirname, '../prisma/'),
+      binaryPath: join(__dirname, '../prisma-binary'),
+    },
+  },
 });
 
 const nexusPrisma = nexusPrismaPlugin({
@@ -41,6 +48,7 @@ const healthCheckServer = () => {
   const server = express();
 
   server.get('/ping', (_: Request, res: Response) => res.send('pong'));
+
   server.listen(8081, () =>
     console.log('Health Checks are running on port 8081')
   );
@@ -56,6 +64,8 @@ const server = new GraphQLServer({
     };
   },
 });
+
+server.express.set('trust proxy', true);
 
 server.start({ port: 8080 }, () =>
   console.log(`🚀 Server ready at http://localhost:8080`)
