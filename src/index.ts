@@ -14,7 +14,7 @@ const photon = new Photon({
   __internal: {
     engine: {
       cwd: join(__dirname, '../prisma/'),
-      binaryPath: join(__dirname, '../prisma-binary'),
+      binaryPath: join(__dirname, '../prisma-glibc'),
     },
   },
 });
