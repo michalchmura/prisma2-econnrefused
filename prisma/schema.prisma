@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://root:prisma@docker.for.mac.host.internal:5432/prisma2?schema=public"
+  url      = "postgresql://root:prisma@docker.for.mac.host.internal:5432/postgres?schema=public"
 }
 
 generator photon {
